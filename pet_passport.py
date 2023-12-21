@@ -86,7 +86,7 @@ class PetApp(QtWidgets.QMainWindow, pet_choice_design.Ui_Dialog_choice):
                                 fio_vladeltsa TEXT NOT NULL,
                                 adres_vladeltsa TEXT NOT NULL,
                                 nomer_vladeltsa TEXT NOT NULL,
-                                pet_name TEXT NOT NULL,
+                                pet_name TEXT NOT NULL UNIQUE,
                                 pet_type TEXT NOT NULL,
                                 pet_poroda TEXT NOT NULL,
                                 pet_color TEXT NOT NULL,
@@ -101,7 +101,7 @@ class PetApp(QtWidgets.QMainWindow, pet_choice_design.Ui_Dialog_choice):
                                 path_photo TEXT NOT NULL
                                 )
                                 ''')
-
+        self.db_connection.commit()
         self.db_cursor.close()
         self.db_connection.close()
 
@@ -125,31 +125,35 @@ class PetApp(QtWidgets.QMainWindow, pet_choice_design.Ui_Dialog_choice):
             text15 = self.w.lineEdit_special_mark.text()
             text16 = 's'
 
-            self.db_cursor.execute(f'INSERT INTO {self.pet_name} (fio_vladeltsa,\
-                                    adres_vladeltsa,\
-                                    nomer_vladeltsa,\
-                                    pet_name,\
-                                    pet_type,\
-                                    pet_poroda,\
-                                    pet_color,\
-                                    pet_birthday,\
-                                    pet_sex,\
-                                    chip_number,\
-                                    chip_date,\
-                                    chip_place,\
-                                    kleymo_nomer,\
-                                    kleymo_date,\
-                                    special_mark,\
-                                    path_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                                   (f'{text1}', f'{text2}', f'{text3}', f'{text4}', f'{text5}', f'{text6}', f'{text7}',
-                                    f'{text8}', f'{text9}', f'{text10}', f'{text11}', f'{text12}', f'{text13}',
-                                    f'{text14}',
-                                    f'{text15}', f'{text16}',))
+            try:
+                self.db_cursor.execute(f'INSERT INTO {self.pet_name} (fio_vladeltsa,\
+                                        adres_vladeltsa,\
+                                        nomer_vladeltsa,\
+                                        pet_name,\
+                                        pet_type,\
+                                        pet_poroda,\
+                                        pet_color,\
+                                        pet_birthday,\
+                                        pet_sex,\
+                                        chip_number,\
+                                        chip_date,\
+                                        chip_place,\
+                                        kleymo_nomer,\
+                                        kleymo_date,\
+                                        special_mark,\
+                                        path_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                                       (f'{text1}', f'{text2}', f'{text3}', f'{text4}', f'{text5}', f'{text6}', f'{text7}',
+                                        f'{text8}', f'{text9}', f'{text10}', f'{text11}', f'{text12}', f'{text13}',
+                                        f'{text14}',
+                                        f'{text15}', f'{text16}',))
 
-            self.db_connection.commit()
-            self.clean_after_close()
-            self.db_cursor.close()
-            self.db_connection.close()
+                self.db_connection.commit()
+            except sqlite3.IntegrityError:   # Обработка ошибки при создании уникального имени
+                pass
+            finally:
+                self.clean_after_close()
+                self.db_cursor.close()
+                self.db_connection.close()
 
     def load_pet_db(self):
         if self.listWidget.selectedIndexes():
