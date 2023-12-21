@@ -19,7 +19,9 @@ def create_folders(folders):
             os.makedirs(path)
 
 
-folders_to_create = ['data', 'data/images', 'data/database']
+folders_to_create = ['C:/ProgramData/Pet passport/data',
+                     'C:/ProgramData/Pet passport/data/images',
+                     'C:/ProgramData/Pet passport/data/database']
 create_folders(folders_to_create)
 
 
@@ -55,7 +57,7 @@ class PetApp(QtWidgets.QMainWindow, pet_choice_design.Ui_Dialog_choice):
                 self.w.error_label.setText('Ошибка, кличка питомца обязательна')
 
     def db_connect(self):
-        self.db_connection = sqlite3.connect("data/database/PetPassport.db")
+        self.db_connection = sqlite3.connect("C:/ProgramData/Pet passport/data/database/PetPassport.db")
         self.db_cursor = self.db_connection.cursor()
 
     def clean_after_close(self):
@@ -179,8 +181,8 @@ class PetApp(QtWidgets.QMainWindow, pet_choice_design.Ui_Dialog_choice):
                 self.m_i.kleymo_date.setText(task[13])
                 self.m_i.special_mark.setText(task[14])
                 if task[15] == 's':
-                    if os.path.isfile("data/images/no_photo.jpg"):
-                        self.m_i.label.setPixmap(QPixmap("data/images/no_photo.jpg"))
+                    if os.path.isfile("C:/ProgramData/Pet passport/data/images/no_photo.png"):
+                        self.m_i.label.setPixmap(QPixmap("C:/ProgramData/Pet passport/data/images/no_photo.png"))
                     else:
                         self.m_i.label.setText('            Изображение не найдено')
                 else:
@@ -202,7 +204,7 @@ class PetApp(QtWidgets.QMainWindow, pet_choice_design.Ui_Dialog_choice):
             items.append(self.listWidget.item(index))
         for item in items:
             items_text.append(item.text())
-        with open("data/database/All_pets.txt", "w") as file:
+        with open("C:/ProgramData/Pet passport/data/database/All_pets.txt", "w") as file:
             for i in items_text:
                 file.write(i + '\n')
 
@@ -210,7 +212,7 @@ class PetApp(QtWidgets.QMainWindow, pet_choice_design.Ui_Dialog_choice):
         if self.listWidget.selectedIndexes():
             self.error_label.setText('')
             current_name = self.listWidget.currentItem().text()
-            self.db_connection = sqlite3.connect("data/database/PetPassport.db")
+            self.db_connection = sqlite3.connect("C:/ProgramData/Pet passport/data/database/PetPassport.db")
             self.db_cursor = self.db_connection.cursor()
 
             self.db_cursor.execute(f'DROP TABLE IF EXISTS {current_name}')
@@ -220,7 +222,7 @@ class PetApp(QtWidgets.QMainWindow, pet_choice_design.Ui_Dialog_choice):
             self.db_connection.close()
             ###########################################################################
 
-            self.db_connection2 = sqlite3.connect("data/database/Vaccines_rabies.db")
+            self.db_connection2 = sqlite3.connect("C:/ProgramData/Pet passport/data/database/Vaccines_rabies.db")
             self.db_cursor2 = self.db_connection2.cursor()
 
             self.db_cursor2.execute(f'DROP TABLE IF EXISTS {current_name}')
@@ -230,7 +232,7 @@ class PetApp(QtWidgets.QMainWindow, pet_choice_design.Ui_Dialog_choice):
             self.db_connection2.close()
             ###########################################################################
 
-            self.db_connection3 = sqlite3.connect("data/database/Vaccines_ectoparasites.db")
+            self.db_connection3 = sqlite3.connect("C:/ProgramData/Pet passport/data/database/Vaccines_ectoparasites.db")
             self.db_cursor3 = self.db_connection3.cursor()
 
             self.db_cursor3.execute(f'DROP TABLE IF EXISTS {current_name}')
@@ -240,7 +242,7 @@ class PetApp(QtWidgets.QMainWindow, pet_choice_design.Ui_Dialog_choice):
             self.db_connection3.close()
             ###########################################################################
 
-            self.db_connection4 = sqlite3.connect("data/database/Vaccines_deworming.db")
+            self.db_connection4 = sqlite3.connect("C:/ProgramData/Pet passport/data/database/Vaccines_deworming.db")
             self.db_cursor4 = self.db_connection4.cursor()
 
             self.db_cursor4.execute(f'DROP TABLE IF EXISTS {current_name}')
@@ -250,7 +252,7 @@ class PetApp(QtWidgets.QMainWindow, pet_choice_design.Ui_Dialog_choice):
             self.db_connection4.close()
             ###########################################################################
 
-            self.db_connection5 = sqlite3.connect("data/database/Vaccines_other.db")
+            self.db_connection5 = sqlite3.connect("C:/ProgramData/Pet passport/data/database/Vaccines_other.db")
             self.db_cursor5 = self.db_connection5.cursor()
 
             self.db_cursor5.execute(f'DROP TABLE IF EXISTS {current_name}')
@@ -260,7 +262,7 @@ class PetApp(QtWidgets.QMainWindow, pet_choice_design.Ui_Dialog_choice):
             self.db_connection5.close()
             ###########################################################################
 
-            filename = "data/database/All_pets.txt"  # Читает из файла все имена чтобы удалить выбранный
+            filename = "C:/ProgramData/Pet passport/data/database/All_pets.txt"  # Читает из файла все имена чтобы удалить выбранный
             if self.listWidget.selectedIndexes():
                 if os.path.isfile(filename):
                     with open(filename, 'r') as file:
@@ -295,7 +297,7 @@ class PetApp(QtWidgets.QMainWindow, pet_choice_design.Ui_Dialog_choice):
         self.pet_name = None
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
 
-        filename = "data/database/All_pets.txt"  # Читает из файла все имена чтобы их выбрать потом
+        filename = "C:/ProgramData/Pet passport/data/database/All_pets.txt"  # Читает из файла все имена чтобы их выбрать потом
         if os.path.isfile(filename):
             with open(filename, 'r') as file:
                 for i in file:

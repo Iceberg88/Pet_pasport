@@ -40,7 +40,7 @@ class MainInformation(QtWidgets.QMainWindow, pet01_design.Ui_MainWindow):
             self.record.tableWidget_rabies_add.setItem(0, 0, QTableWidgetItem(''))
 
     def db_connect_rabies(self):
-        self.db_connection = sqlite3.connect("data/database/Vaccines_rabies.db")
+        self.db_connection = sqlite3.connect("C:/ProgramData/Pet passport/data/database/Vaccines_rabies.db")
         self.db_cursor = self.db_connection.cursor()
 
     def create_db_rabies(self):
@@ -132,7 +132,7 @@ class MainInformation(QtWidgets.QMainWindow, pet01_design.Ui_MainWindow):
             self.ecto_record.tableWidget_ectoparasites_add.setItem(0, 0, QTableWidgetItem(''))
 
     def db_connect_ecto(self):
-        self.db_connection = sqlite3.connect("data/database/Vaccines_ectoparasites.db")
+        self.db_connection = sqlite3.connect("C:/ProgramData/Pet passport/data/database/Vaccines_ectoparasites.db")
         self.db_cursor = self.db_connection.cursor()
 
     def create_db_ecto(self):
@@ -222,7 +222,7 @@ class MainInformation(QtWidgets.QMainWindow, pet01_design.Ui_MainWindow):
             self.deworming_record.tableWidget_ectoparasites_add.setItem(0, 0, QTableWidgetItem(''))
 
     def db_connect_deworming(self):
-        self.db_connection = sqlite3.connect("data/database/Vaccines_deworming.db")
+        self.db_connection = sqlite3.connect("C:/ProgramData/Pet passport/data/database/Vaccines_deworming.db")
         self.db_cursor = self.db_connection.cursor()
 
     def create_db_deworming(self):
@@ -313,7 +313,7 @@ class MainInformation(QtWidgets.QMainWindow, pet01_design.Ui_MainWindow):
             self.other_record.tableWidget_ectoparasites_add.setItem(0, 0, QTableWidgetItem(''))
 
     def db_connect_other(self):
-        self.db_connection = sqlite3.connect("data/database/Vaccines_other.db")
+        self.db_connection = sqlite3.connect("C:/ProgramData/Pet passport/data/database/Vaccines_other.db")
         self.db_cursor = self.db_connection.cursor()
 
     def create_db_other(self):
@@ -420,7 +420,7 @@ class MainInformation(QtWidgets.QMainWindow, pet01_design.Ui_MainWindow):
         self.label.setPixmap(pixmap)
 
         text16 = image_path
-        self.db_connection = sqlite3.connect("data/database/PetPassport.db")
+        self.db_connection = sqlite3.connect("C:/ProgramData/Pet passport/data/database/PetPassport.db")
         self.db_cursor = self.db_connection.cursor()
 
         self.db_cursor.execute(
