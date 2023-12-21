@@ -26,13 +26,16 @@ folders_to_create = ['C:/ProgramData/Pet passport/data',
 create_folders(folders_to_create)
 
 
-def load_default_photo():
+def download_default_photo():
     if not os.path.isfile("C:/ProgramData/Pet passport/data/images/no_photo.png"):
-        url = 'https://i.postimg.cc/cHvHvNFV/no-photo.png'
-        response = requests.get(url)
-        if response.status_code == 200:
-            with open('C:/ProgramData/Pet passport/data/images/no_photo.png', 'wb') as file:
-                file.write(response.content)
+        try:
+            url = 'https://i.postimg.cc/cHvHvNFV/no-photo.png'
+            response = requests.get(url)
+            if response.status_code == 200:
+                with open('C:/ProgramData/Pet passport/data/images/no_photo.png', 'wb') as file:
+                    file.write(response.content)
+        except Exception as e:
+            pass
 
 
 class PetApp(QtWidgets.QMainWindow, pet_choice_design.Ui_Dialog_choice):
@@ -316,7 +319,7 @@ class PetApp(QtWidgets.QMainWindow, pet_choice_design.Ui_Dialog_choice):
         self.w = create_menu.CreateMenu()
         self.m_i = main_information.MainInformation()
         self.oldPos = None  # атрибут перемещения окна
-        load_default_photo()
+        download_default_photo()
 
         self.create_pet_button.clicked.connect(self.open_window_create)
         self.select_pet_button.clicked.connect(self.load_pet_db)
